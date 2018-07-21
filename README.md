@@ -1,30 +1,27 @@
-# hover-api
+# hover-api-promise
 
-[![Build Status](https://travis-ci.org/swhite24/hover-api.svg?branch=master)](https://travis-ci.org/swhite24/hover-api)
-[![npm version](https://badge.fury.io/js/hover-api.svg)](http://badge.fury.io/js/hover-api)
-
-Hover DNS api client, inspired completely by [https://gist.github.com/dankrause/5585907](https://gist.github.com/dankrause/5585907).
+Hover DNS api client with Promises, adapted from inspired completely by [Hover API by Steven White](https://github.com/swhite24/hover-api).
 
 ## Usage
 
 ```javascript
-var hover = require('hover-api')('username', 'password');
+var hover = require('hover-api-promise')('username', 'password');
 
-hover.getAllDomains(function (err, domains) {
+hover.getAllDomains().then(domains => {
     console.log(domains);
 });
 ```
 
 ## API
 
-* getAllDomains(cb)
-* getAllDns(cb)
-* getDomain(domain, cb)
-* getDomainDns(domain, cb)
-* createARecord (domain, subdomain, ip, cb)
-* createMXRecord (domain, subdomain, priority, ip, cb)
-* updateDomainDns (dns, ip, cb)
-* removeDns (dns, cb)
+* getAllDomains()
+* getAllDns()
+* getDomain(domain)
+* getDomainDns(domain)
+* createARecord (domain, subdomain, ip)
+* createMXRecord (domain, subdomain, priority, ip)
+* updateDomainDns (dns, ip)
+* removeDns (dns)
 
 ## License
 
