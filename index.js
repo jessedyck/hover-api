@@ -1,6 +1,6 @@
 /**
 * index.js
-* Entry point into hover-api-promise, API-compatible with (and based on) 
+* Entry point into hover-api-promise, based on
 * hover-api by Steven White, but promisified.
 *
 * Author: Jesse Dyck, 2018
