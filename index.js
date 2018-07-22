@@ -74,12 +74,16 @@ class hoverAPI {
 	}
 	
 	/**
-	* Retrieve list of all dns records in account
+	* Retrieve list of all dns records in account.
+	* Uses the classic hover.com/api endpoint, as there's no
+	* apparent endpoint on /control_panel/api that provides
+	* this data.
 	*
 	* @api public
 	*/
 	getAllDns () {
-		return this._hoverRequest({uri: '/dns'});
+		return this._hoverRequest({uri: '/api/dns'}) // Old API
+			.then( domains => Promise.resolve( domains[0] ) );
 	}
 	
 	/**
@@ -186,7 +190,6 @@ class hoverAPI {
 	
 	/**
 	* Remove an existing dns record
-	* TODO
 	*
 	* @param {String} domain Domain name
 	* @param {String} dns DNS identifier (dns########)
@@ -243,13 +246,14 @@ class hoverAPI {
 	/**
 	* Proxy request to hover API. Relies on previously-started
 	* login promise.
-	* Prepends baseUrl to the supplied uri in the req object.
+	* Prepends the required URL to the supplied uri in the req object.
 	*
 	* @param {Object} req Parameters for HTTP request
 	* @api private
 	*/
 	_hoverRequest (req) {
-		req.uri = this._apiUrl + req.uri;
+		// If the URL already contains 'API', use the baseUrl instead of API url 
+		req.uri = req.uri.indexOf ('api') == -1 ? this._apiUrl + req.uri : this._baseUrl + req.uri;
 		
 		this._log('Compiled request:');
 		this._log(req);
