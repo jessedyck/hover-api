@@ -1,6 +1,6 @@
 {
   "name": "hover-api-promise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hover DNS API Client using Promises",
   "main": "index.js",
   "repository": {
