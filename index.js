@@ -198,10 +198,9 @@ class hoverAPI {
 			.then (data => {
 				this._log('Got response:');
 				this._log(data);
-				const key = _.without(_.keys(data), 'succeeded');
-				const value = data[key] ? data[key] : data.succeeded;
+				_.unset(data, 'succeeded');
 				
-				return Promise.resolve(value);
+				return Promise.resolve(_.toArray(data));
 			})
 			.catch ( err => {
 				return Promise.reject(err.message);
