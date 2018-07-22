@@ -90,7 +90,7 @@ class hoverAPI {
 	/**
 	* Retrieve individual domain in account
 	*
-	* @param {String} domain Domain name
+	* @param {String} domain Second-level domain name (eg: hover.com)
 	* @api public
 	*/
 	getDomain (domain) {
@@ -101,7 +101,7 @@ class hoverAPI {
 	/**
 	* Retrieve list of all dns records for particular domain
 	*
-	* @param {String} domain Domain name
+	* @param {String} domain Second-level domain name (eg: hover.com)
 	* @api public
 	*/
 	getDomainDns (domain) {
@@ -112,8 +112,8 @@ class hoverAPI {
 	/**
 	* Create a new A record under the specified domain
 	*
-	* @param {String} domain Domain name
-	* @param {String} subdomain Subdomain of record
+	* @param {String} domain Second-level domain name (eg: hover.com)
+	* @param {String} subdomain Subdomain of record (eg: www)
 	* @param {String} ip IP Address of record
 	* @api public
 	*/
@@ -138,8 +138,8 @@ class hoverAPI {
 	/**
 	* Create a new MX record under the specified domain
 	*
-	* @param {String} domain Domain name
-	* @param {String} subdomain Subdomain of record
+	* @param {String} domain Second-level domain name (eg: hover.com)
+	* @param {String} subdomain Subdomain of record (eg: mail)
 	* @param {String} priority Priority of record
 	* @param {String} ip IP Address of record
 	* @api public
@@ -164,10 +164,9 @@ class hoverAPI {
 	
 	/**
 	* Update an existing domain record
-	* TODO
 	*
-	* @param {String} domain Domain name
-	* @param {String} dns DNS identifier (dns########)
+	* @param {String} domain Second-level domain name (eg: hover.com)
+	* @param {String} dns DNS identifier (eg: dns########)
 	* @param {String} ip New IP Address of record
 	* @api public
 	*/
@@ -195,8 +194,8 @@ class hoverAPI {
 	/**
 	* Remove an existing dns record
 	*
-	* @param {String} domain Domain name
-	* @param {String} dns DNS identifier (dns########)
+	* @param {String} domain Second-level domain name (eg: hover.com)
+	* @param {String} dns DNS identifier (eg: dns########)
 	* @api public
 	*/
 	removeDns (domain, dns) {
@@ -216,6 +215,15 @@ class hoverAPI {
 			.then( () => Promise.resolve(true) );
 	}
 
+	/**
+	* Returns a promise with an array of Hover's interal unique domain IDs
+	* for a supplied record.
+	*
+	* @param {String} domain Second-level domain name (eg: hover.com)
+	* @param {String} subdomain Third-level subdomain (eg: www)
+	* @param {String} recordtype DNS Record type (eg: A)
+	* @api public
+	*/
 	getSubdomainIdentifiers (domain, subdomain, recordtype) {
 		if (!_.isString(domain) || domain == '') 
 			return Promise.reject('Invalid domain supplied.');
