@@ -70,7 +70,8 @@ class hoverAPI {
 	* @api public
 	*/
 	getAllDomains () {
-		return this._hoverRequest({uri: '/domains'});
+		return this._hoverRequest({uri: '/domains'})
+			.then( domains => Promise.resolve( domains[0] ) );
 	}
 	
 	/**
@@ -93,7 +94,8 @@ class hoverAPI {
 	* @api public
 	*/
 	getDomain (domain) {
-		return this._hoverRequest({uri: '/domains/' + domain});
+		return this._hoverRequest({uri: '/domains/' + domain})
+			.then( domains => Promise.resolve( domains[0] ) );
 	}
 	
 	/**
@@ -103,7 +105,8 @@ class hoverAPI {
 	* @api public
 	*/
 	getDomainDns (domain) {
-		return this._hoverRequest({uri: '/dns/' + domain});
+		return this._hoverRequest({uri: '/dns/' + domain})
+			.then(domain => Promise.resolve(domain[0].dns));
 	}
 	
 	/**
@@ -185,7 +188,8 @@ class hoverAPI {
 			}
 		};
 		
-		return this._hoverRequest(req);
+		return this._hoverRequest(req)
+			.then ( () => Promise.resolve(true) );
 	}
 	
 	/**
@@ -208,7 +212,8 @@ class hoverAPI {
 			}
 		};
 
-		return this._hoverRequest(req);
+		return this._hoverRequest(req)
+			.then( () => Promise.resolve(true) );
 	}
 
 	getSubdomainIdentifiers (domain, subdomain, recordtype) {
@@ -225,12 +230,12 @@ class hoverAPI {
 			.catch( () => Promise.reject('Could not find domain ' + domain + ' or connection error.'))
 			.then( domainDNS => {
 				this._log('Got DNS Entries:');
-				this._log(domainDNS[0].dns);
+				this._log(domainDNS);
 
 				let matchingEntries = [];
 
 				// Find entries that match the parameters specified
-				matchingEntries = domainDNS[0].dns.filter( entry => entry.name.toLowerCase() == subdomain.toLowerCase() && entry.type.toLowerCase() == recordtype.toLowerCase() );
+				matchingEntries = domainDNS.filter( entry => entry.name.toLowerCase() == subdomain.toLowerCase() && entry.type.toLowerCase() == recordtype.toLowerCase() );
 
 				if (matchingEntries.length == 0)
 					return Promise.reject('No matching subdomain and record type found.');
