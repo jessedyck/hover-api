@@ -22,6 +22,7 @@ hover.getAllDomains().then(domains => {
 * createMXRecord (domain, subdomain, priority, ip)
 * updateDomainDns (dns, ip)
 * removeDns (dns)
+* getSubdomainIdentifiers (domain, subdomain, recordtype)
 
 ## License
 
