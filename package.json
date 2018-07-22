@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/jessedyck/hover-api-promise",
   "dependencies": {
-    "lodash": "^2.4.2",
+    "lodash": "^4.17.10",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5"
   }
